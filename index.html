@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Arnaiz — Data & AI Developer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #08080f;
+            --text: #e8e8f0;
+            --muted: #6b6b80;
+            --accent: #6366f1;
+            --accent2: #a78bfa;
+        }
+
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        canvas#bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(8, 8, 15, 0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: -0.02em;
+            color: var(--accent2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+        .sections {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 10;
+        }
+
+        .section {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 3rem 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            pointer-events: none;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .side-dots {
+            position: fixed;
+            right: 1.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--muted);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent2);
+            transform: scale(1.8);
+        }
+
+        /* HERO */
+        .hero-content { max-width: 680px; }
+
+        .hero-tag {
+            font-size: 0.72rem;
+            color: var(--accent2);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            white-space: nowrap;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 0.95;
+            margin-bottom: 1.75rem;
+            background: linear-gradient(140deg, #e8e8f0 30%, var(--accent2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-row { display: flex; gap: 1rem; }
+
+        .btn {
+            padding: 0.7rem 1.6rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary { background: var(--accent); color: white; border: none; }
+        .btn-primary:hover { background: #4f46e5; transform: translateY(-2px); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.28); transform: translateY(-2px); }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            max-width: 860px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            color: var(--accent2);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text { color: var(--muted); line-height: 1.85; font-size: 0.9rem; }
+
+        .info-list { display: flex; flex-direction: column; gap: 1.1rem; }
+
+        .info-row { display: flex; gap: 1.25rem; }
+
+        .info-key {
+            font-size: 0.68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            min-width: 75px;
+            padding-top: 3px;
+        }
+
+        .info-val { font-size: 0.87rem; color: var(--text); }
+
+        /* SKILLS */
+        .skills-wrap { max-width: 860px; width: 100%; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .skill-card {
+            padding: 1.4rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: rgba(99,102,241,0.28);
+            background: rgba(99,102,241,0.05);
+            transform: translateY(-3px);
+        }
+
+        .skill-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+        .skill-name { font-size: 0.87rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .skill-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+
+        /* PROJECTS */
+        .projects-wrap { max-width: 860px; width: 100%; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .project-card {
+            padding: 1.6rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            border-color: rgba(167,139,250,0.28);
+            background: rgba(167,139,250,0.04);
+            transform: translateY(-3px);
+        }
+
+        .project-tag {
+            font-size: 0.67rem;
+            color: var(--accent2);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.45rem; }
+        .project-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+        .project-arrow { margin-top: 0.9rem; font-size: 0.75rem; color: var(--accent2); }
+
+        /* CONTACT */
+        .contact-content { max-width: 560px; text-align: center; }
+        .contact-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.8; }
+        .contact-links { display: flex; gap: 0.9rem; justify-content: center; margin-top: 2.25rem; flex-wrap: wrap; }
+
+        /* scroll hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 2rem; left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--muted);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.4s;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.25; }
+            50% { opacity: 0.7; }
+        }
+
+        .scroll-line {
+            width: 1px; height: 28px;
+            background: linear-gradient(to bottom, var(--muted), transparent);
+        }
+    </style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<nav>
+    <div class="nav-logo">BA</div>
+    <ul class="nav-links">
+        <li><a onclick="goTo(0)" id="nav-0" class="active">Inicio</a></li>
+        <li><a onclick="goTo(1)" id="nav-1">Sobre mí</a></li>
+        <li><a onclick="goTo(2)" id="nav-2">Habilidades</a></li>
+        <li><a onclick="goTo(3)" id="nav-3">Proyectos</a></li>
+        <li><a onclick="goTo(4)" id="nav-4">Contacto</a></li>
+    </ul>
+</nav>
+
+<div class="sections">
+
+    <!-- HERO -->
+    <section class="section active" id="s0">
+        <div class="hero-content">
+            <p class="hero-tag">Data &amp; AI Developer</p>
+            <h1 class="hero-name">Bruno Arnaiz</h1>
+            <p class="hero-sub">Construyo soluciones con inteligencia artificial,<br>automatización y análisis de datos.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" onclick="goTo(3)">Ver proyectos</a>
+                <a class="btn btn-ghost" onclick="goTo(4)">Contacto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="s1">
+        <div class="about-grid">
+            <div>
+                <p class="section-label">Sobre mí</p>
+                <h2 class="section-title">Estudiante.<br>Desarrollador.<br>Builder.</h2>
+                <p class="about-text">Estudiante de Ciencia e Ingeniería de Datos en Madrid. Me especializo en construir herramientas con IA, automatización de procesos y desarrollo web. Todos mis proyectos son reales y funcionales.</p>
+            </div>
+            <div class="info-list">
+                <div class="info-row">
+                    <span class="info-key">Nombre</span>
+                    <span class="info-val">Bruno Arnaiz Santamaría</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Ubicación</span>
+                    <span class="info-val">Pozuelo de Alarcón, Madrid</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Email</span>
+                    <span class="info-val">bruno10112005@gmail.com</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Estudios</span>
+                    <span class="info-val">Ciencia e Ingeniería de Datos</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">Idiomas</span>
+                    <span class="info-val">Español (nativo) · Inglés B2</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-key">GitHub</span>
+                    <span class="info-val">github.com/brunoarnaiz</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="s2">
+        <div class="skills-wrap">
+            <p class="section-label" style="text-align:center;margin-bottom:2rem">Habilidades</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <div class="skill-name">Python</div>
+                    <div class="skill-desc">Análisis de datos, automatización, backends, bots y agentes de IA.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">IA & LLMs</div>
+                    <div class="skill-desc">Claude, Groq, OpenAI. Integración de modelos en productos reales.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🌐</div>
+                    <div class="skill-name">Web</div>
+                    <div class="skill-desc">HTML, CSS y JavaScript. Landing pages modernas y funcionales.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🔗</div>
+                    <div class="skill-name">APIs & Servicios</div>
+                    <div class="skill-desc">Twilio, ElevenLabs, Deepgram. Integración de servicios de terceros.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <div class="skill-name">Automatización</div>
+                    <div class="skill-desc">Agentes IA, scripts y pipelines que trabajan solos.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🤝</div>
+                    <div class="skill-name">Atención al Cliente</div>
+                    <div class="skill-desc">Comunicación clara, seguimiento cercano y soporte personalizado en cada proyecto.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="s3">
+        <div class="projects-wrap">
+            <p class="section-label" style="text-align:center;margin-bottom:2rem">Algunos proyectos personales</p>
+            <div class="projects-grid">
+                <a class="project-card" href="https://github.com/brunoarnaiz/trading_bot" target="_blank">
+                    <div class="project-tag">Python · MT5 · Trading</div>
+                    <div class="project-name">Trading Bot</div>
+                    <div class="project-desc">Bot de trading algorítmico para MetaTrader 5 con backtesting, gestión de riesgo y múltiples estrategias.</div>
+                    <div class="project-arrow">Ver en GitHub →</div>
+                </a>
+                <a class="project-card" href="https://github.com/brunoarnaiz/asistente-ia-llamadas" target="_blank">
+                    <div class="project-tag">Python · Twilio · LLMs · Voz</div>
+                    <div class="project-name">Asistente IA para Llamadas</div>
+                    <div class="project-desc">Asistente telefónico con IA para hoteles usando Twilio, Groq, Deepgram y ElevenLabs.</div>
+                    <div class="project-arrow">Ver en GitHub →</div>
+                </a>
+                <a class="project-card" href="https://github.com/brunoarnaiz/pagina-web-moderna-demo" target="_blank">
+                    <div class="project-tag">HTML · CSS · JS</div>
+                    <div class="project-name">Landing Page Moderna</div>
+                    <div class="project-desc">Landing page con animaciones canvas, scroll horizontal y diseño editorial. HTML/CSS/JS puro.</div>
+                    <div class="project-arrow">Ver en GitHub →</div>
+                </a>
+                <a class="project-card" href="https://github.com/brunoarnaiz/cerebrum" target="_blank">
+                    <div class="project-tag">Python · Agentes IA · Obsidian</div>
+                    <div class="project-name">Cerebrum</div>
+                    <div class="project-desc">Tres agentes de IA que mantienen automáticamente un grafo de conocimiento en Obsidian.</div>
+                    <div class="project-arrow">Ver en GitHub →</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="s4">
+        <div class="contact-content">
+            <p class="section-label">Contacto</p>
+            <h2 class="section-title" style="font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:-0.04em;margin-bottom:1.25rem">¿Trabajamos<br>juntos?</h2>
+            <p class="contact-desc">Disponible para proyectos freelance. Si tienes una idea o necesitas automatización, IA o desarrollo web, escríbeme.</p>
+            <div class="contact-links">
+                <a class="btn btn-primary" href="mailto:bruno10112005@gmail.com">Enviar email</a>
+                <a class="btn btn-ghost" href="https://github.com/brunoarnaiz" target="_blank">GitHub</a>
+                <a class="btn btn-ghost" href="https://fiverr.com/brunoarnaiz" target="_blank">Fiverr</a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<div class="side-dots">
+    <div class="dot active" onclick="goTo(0)"></div>
+    <div class="dot" onclick="goTo(1)"></div>
+    <div class="dot" onclick="goTo(2)"></div>
+    <div class="dot" onclick="goTo(3)"></div>
+    <div class="dot" onclick="goTo(4)"></div>
+</div>
+
+<div class="scroll-hint" id="scrollHint">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+</div>
+
+<script>
+// ── Background: floating equations ──────────────────────────────────────
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+
+const EQS = [
+    'y = β₀ + β₁x', 'P(A|B) = P(B|A)P(A)/P(B)', '∑(xᵢ − μ)²/n',
+    'σ(z) = 1/(1+e⁻ᶻ)', '∇f(x)', '∫₋∞^∞ e⁻ˣ² dx = √π',
+    'E[X] = ∑xᵢpᵢ', 'argmax_θ L(θ)', '||w||² = wᵀw',
+    'H(X) = −∑p log p', 'xₙ₊₁ = xₙ − α∇f', 'KL(P||Q) = ∑P log P/Q',
+    'softmax(zᵢ) = eᶻⁱ/∑eᶻʲ', 'Var(X) = E[X²] − (E[X])²',
+    'MSE = (1/n)∑(yᵢ−ŷᵢ)²', 'det(A) ≠ 0', 'A⁻¹A = I',
+    'z = (x−μ)/σ', 'Cov(X,Y)/σₓσᵧ', 'f\'(x) = lim Δf/Δx',
+    '∂L/∂w', 'Σ = UΛUᵀ', 'rank(A)', 'tr(A) = ∑λᵢ',
+    'p(x|μ,σ²)', 'β = (XᵀX)⁻¹Xᵀy', '∀x ∈ ℝⁿ', 'ŷ = σ(Wx+b)',
+    'F₁ = 2PR/(P+R)', 'R² = 1 − SS_res/SS_tot', '∂²f/∂x²',
+    'λ₁ ≥ λ₂ ≥ ... ≥ λₙ', 'lim_{n→∞} (1+1/n)ⁿ = e',
+    '∇²f(x) ≻ 0', 'X ~ N(μ, σ²)', 'logit(p) = log p/(1−p)',
+    'AUC = ∫ROC', 'dL/dt = −αL', 'O(n log n)',
+    '||x−y||₂', 'E[XY] − E[X]E[Y]', 'argmin_w ||Xw−y||²',
+    'P(X=k) = e⁻λλᵏ/k!', 'cos(θ) = a·b/||a||||b||',
+    'H₀: μ₁=μ₂', 'p < 0.05', 'χ² = ∑(O−E)²/E',
+    '∫p(x)dx = 1', 'E[aX+b] = aE[X]+b', 'σ² = E[(X−μ)²]',
+];
+
+let pts = [];
+
+function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+}
+
+function initPts() {
+    pts = [];
+    for (let i = 0; i < 80; i++) {
+        const text = EQS[i % EQS.length];
+        pts.push({
+            text,
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.09,
+            vy: (Math.random() - 0.5) * 0.06,
+            op: 0.018 + Math.random() * 0.025,
+            sz: 10 + Math.floor(Math.random() * 5),
+        });
+    }
+}
+
+function drawBg() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pts.forEach(p => {
+        ctx.save();
+        ctx.globalAlpha = p.op;
+        ctx.fillStyle = '#a78bfa';
+        ctx.font = `${p.sz}px 'Courier New', monospace`;
+        ctx.fillText(p.text, p.x, p.y);
+        ctx.restore();
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x > canvas.width + 250) p.x = -250;
+        if (p.x < -250) p.x = canvas.width + 250;
+        if (p.y > canvas.height + 40) p.y = -40;
+        if (p.y < -40) p.y = canvas.height + 40;
+    });
+    requestAnimationFrame(drawBg);
+}
+
+resize(); initPts(); drawBg();
+window.addEventListener('resize', () => { resize(); initPts(); });
+
+// ── Section navigation ───────────────────────────────────────────────────
+let cur = 0, busy = false;
+const N = 5;
+
+function goTo(idx) {
+    if (idx === cur || busy) return;
+    busy = true;
+    const dir = idx > cur ? 1 : -1;
+    const prev = document.getElementById('s' + cur);
+    const next = document.getElementById('s' + idx);
+
+    prev.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    prev.style.opacity = '0';
+    prev.style.transform = `translateY(${dir * -55}px)`;
+
+    next.style.transition = 'none';
+    next.style.opacity = '0';
+    next.style.transform = `translateY(${dir * 55}px)`;
+    next.style.pointerEvents = 'none';
+
+    setTimeout(() => {
+        prev.classList.remove('active');
+        prev.style.cssText = '';
+
+        next.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+        next.style.opacity = '1';
+        next.style.transform = 'translateY(0)';
+        next.classList.add('active');
+        next.style.pointerEvents = '';
+
+        cur = idx;
+        updateUI();
+        setTimeout(() => { busy = false; }, 460);
+    }, 30);
+}
+
+function updateUI() {
+    document.querySelectorAll('.nav-links a').forEach((a, i) => a.classList.toggle('active', i === cur));
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    document.getElementById('scrollHint').style.opacity = cur === 0 ? '1' : '0';
+}
+
+// Wheel
+let wt = null;
+window.addEventListener('wheel', e => {
+    if (wt) return;
+    wt = setTimeout(() => { wt = null; }, 850);
+    if (e.deltaY > 0 && cur < N - 1) goTo(cur + 1);
+    else if (e.deltaY < 0 && cur > 0) goTo(cur - 1);
+}, { passive: true });
+
+// Keyboard
+window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' && cur < N - 1) goTo(cur + 1);
+    if (e.key === 'ArrowUp' && cur > 0) goTo(cur - 1);
+});
+
+// Touch
+let ty = 0;
+window.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+window.addEventListener('touchend', e => {
+    const d = ty - e.changedTouches[0].clientY;
+    if (Math.abs(d) > 45) {
+        if (d > 0 && cur < N - 1) goTo(cur + 1);
+        else if (d < 0 && cur > 0) goTo(cur - 1);
+    }
+}, { passive: true });
+</script>
+</body>
+</html>
