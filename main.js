@@ -17,7 +17,7 @@
     "nav.about": "Sobre mí",
     "nav.contact": "Contacto",
 
-    "hero.label": "Agentic OS builder",
+    "hero.label": "Agentic OS developer",
     "hero.lede": "Usuario avanzado de IA · construyendo sistemas operativos agénticos que ya usan pymes.",
     "hero.cta1": "Ver proyectos",
     "hero.cta2": "Contáctame",
@@ -26,7 +26,7 @@
     "hero.m2k": "Estudio",
     "hero.m2v": "Ciencia e Ingeniería de Datos · URJC",
     "hero.m3k": "Estado",
-    "hero.m3v": "Buscando builders",
+    "hero.m3v": "Buscando fundadores técnicos",
 
     "now.title": "Ahora",
     "now.stamp": "Actualizado: nov. 2026",
