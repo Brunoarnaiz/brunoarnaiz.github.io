@@ -149,7 +149,39 @@
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
     });
     if (save) store(lang);
+    fitHero();
   }
+
+  /* hero: name always on one line filling the width; lede on one line on desktop */
+  var hero = document.querySelector(".hero");
+  var nameEl = document.querySelector(".name");
+  var ledeEl = document.querySelector(".lede");
+  function fit(el, maxPx) {
+    var cs = getComputedStyle(hero);
+    var avail = hero.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    el.style.fontSize = "100px";
+    var w = el.getBoundingClientRect().width;
+    if (!w) return;
+    var size = Math.min(maxPx, (100 * avail) / w * 0.99);
+    el.style.fontSize = size + "px";
+    // text doesn't scale perfectly linearly (hinting, rounding): correct once
+    var w2 = el.getBoundingClientRect().width;
+    if (w2 > avail) el.style.fontSize = (size * avail / w2 * 0.995) + "px";
+  }
+  function fitHero() {
+    if (!hero) return;
+    if (nameEl) fit(nameEl, 320);
+    if (ledeEl) {
+      if (window.innerWidth >= 760) fit(ledeEl, 34);
+      else ledeEl.style.fontSize = "";
+    }
+  }
+  var fitQueued = false;
+  window.addEventListener("resize", function () {
+    if (!fitQueued) { fitQueued = true; requestAnimationFrame(function () { fitQueued = false; fitHero(); }); }
+  });
+  fitHero();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
 
   var fromUrl = (location.search.match(/[?&]lang=(en|es)\b/) || [])[1];
   var initial = fromUrl || stored() || "en";
