@@ -194,6 +194,24 @@ strong { font-weight: 600; }
   background-image: radial-gradient(var(--dot) 1px, transparent 1.3px); background-size: 14px 14px;
 }
 .p-visual svg { width: 100%; max-width: 620px; height: auto; overflow: visible; }
+
+/* open source: a real terminal screenshot instead of a schematic */
+.p-shot { flex-direction: column; gap: 14px; }
+.p-shot a { display: block; width: 100%; max-width: 760px; }
+.p-shot img {
+  display: block; width: 100%; height: auto; border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--fg), 5px 5px 0 var(--fg); transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.p-shot a:hover img { transform: translate(-2px, -2px); box-shadow: 0 0 0 1px var(--fg), 7px 7px 0 var(--lime); }
+.p-shot figcaption { width: 100%; max-width: 760px; font: 400 12px/1.55 var(--f-mono); color: var(--muted); text-wrap: pretty; }
+.spec dd a { overflow-wrap: anywhere; }
+.nowrap { white-space: nowrap; }
+/* on phones keep the terminal readable: it scrolls sideways like a code block */
+@media (max-width: 640px) {
+  .p-shot a { overflow-x: auto; padding: 0 6px 8px 0; -webkit-overflow-scrolling: touch; }
+  .p-shot img { width: 640px; max-width: none; }
+  .p-shot a:hover img { transform: none; }
+}
 .p-body { padding: clamp(22px, 3vw, 40px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 0 clamp(24px, 4vw, 48px); align-items: start; }
 .p-body > .p-intro { grid-column: 1; }
 .p-body > .spec { grid-column: 2; margin-top: 4px; }
