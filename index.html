@@ -35,7 +35,8 @@
     <a class="mark" href="#top">bruno arnaiz</a>
     <nav class="nav" aria-label="Sections">
       <a href="#now" data-i18n="nav.now">Now</a>
-      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#projects" data-i18n="nav.ventures">Ventures</a>
+      <a href="#open-source" data-i18n="nav.oss">Open source</a>
       <a href="#how" data-i18n="nav.how">How I build</a>
       <a href="#stack" data-i18n="nav.stack">Stack</a>
       <a href="#about" data-i18n="nav.about">About</a>
@@ -103,13 +104,13 @@
     </div>
   </section>
 
-  <!-- ─────────── 01 PROJECTS ─────────── -->
+  <!-- ─────────── 01 VENTURES ─────────── -->
   <section class="sec" id="projects">
     <div class="wrap sec-grid">
       <header class="sec-head reveal">
         <span class="idx">01 /</span>
-        <h2 data-i18n="proj.title">Projects</h2>
-        <p class="stamp" data-i18n="proj.intro">Two projects, one architecture. Both private — happy to show them live.</p>
+        <h2 data-i18n="proj.title">Ventures</h2>
+        <p class="stamp" data-i18n="proj.intro">What I run. Two ventures, one architecture. Both private — happy to show them live.</p>
       </header>
       <div class="sec-body projects">
 
@@ -243,11 +244,64 @@
     </div>
   </section>
 
-  <!-- ─────────── 02 HOW I BUILD ─────────── -->
-  <section class="sec" id="how">
+  <!-- ─────────── 02 OPEN SOURCE ─────────── -->
+  <section class="sec" id="open-source">
     <div class="wrap sec-grid">
       <header class="sec-head reveal">
         <span class="idx">02 /</span>
+        <h2 data-i18n="oss.title">Open source</h2>
+        <p class="stamp" data-i18n="oss.intro">Small public repos: clone them, read the code, run them.</p>
+      </header>
+      <div class="sec-body projects">
+
+        <!-- agent-regression -->
+        <article class="project reveal">
+          <figure class="p-visual p-shot">
+            <a href="https://github.com/Brunoarnaiz/agent-regression" target="_blank" rel="noopener">
+              <img src="img/agent-regression.png" width="1033" height="241" loading="lazy"
+                   alt="Terminal output of agent-regression on Claude: with prompt v2 the order-lookup case regresses from 2/2 to 0/2 because the lookup_order tool is no longer called.">
+            </a>
+            <figcaption data-i18n="o1.cap">A real run on Claude: a prompt tweak meant to cut costs made the agent stop looking up orders. Only the tool check caught it.</figcaption>
+          </figure>
+          <div class="p-body">
+            <div class="p-intro">
+              <h3 class="p-name">agent-regression</h3>
+              <p class="p-tag" data-i18n="o1.tag">Regression tests for AI agents.</p>
+              <p class="p-what" data-i18n="o1.what">Change a prompt, a model or a tool and find out what you broke before your users do. Test cases live in a YAML file; every run is compared against a saved baseline, so you see what regressed and what got fixed — with an exit code your CI understands. It checks what the agent <em>does</em> (the tools it calls), not only what it says.</p>
+            </div>
+            <dl class="spec">
+              <div><dt data-i18n="k.stack">Stack</dt><dd>Python · YAML · pytest · GitHub Actions · Claude API</dd></div>
+              <div><dt data-i18n="k.status">Status</dt><dd><span class="state live" aria-hidden="true"></span><span data-i18n="o1.status">Public · MIT license · tests passing on <span class="nowrap">Python 3.10–3.13</span></span></dd></div>
+              <div><dt data-i18n="k.link">Link</dt><dd><a class="more" href="https://github.com/Brunoarnaiz/agent-regression" target="_blank" rel="noopener">github.com/Brunoarnaiz/agent-regression ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <!-- trading-bot-mt5 -->
+        <article class="project compact reveal">
+          <div class="p-body">
+            <div class="p-intro">
+              <h3 class="p-name">trading-bot-mt5</h3>
+              <p class="p-tag" data-i18n="o2.tag">Algorithmic trading bot for MetaTrader 5.</p>
+              <p class="p-what" data-i18n="o2.what">Pluggable strategies combined by a selector that detects the market regime, a risk manager that sizes every position, and an event-driven backtesting engine with spread, slippage and commissions.</p>
+            </div>
+            <dl class="spec">
+              <div><dt data-i18n="k.stack">Stack</dt><dd>Python · MQL5 · MetaTrader 5</dd></div>
+              <div><dt data-i18n="k.status">Status</dt><dd><span class="state dev" aria-hidden="true"></span><span data-i18n="o2.status">Research project · demo account only</span></dd></div>
+              <div><dt data-i18n="k.link">Link</dt><dd><a class="more" href="https://github.com/Brunoarnaiz/trading-bot-mt5" target="_blank" rel="noopener">github.com/Brunoarnaiz/trading-bot-mt5 ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── 03 HOW I BUILD ─────────── -->
+  <section class="sec" id="how">
+    <div class="wrap sec-grid">
+      <header class="sec-head reveal">
+        <span class="idx">03 /</span>
         <h2 data-i18n="how.title">How I build</h2>
       </header>
       <div class="sec-body">
@@ -278,11 +332,11 @@
     </div>
   </section>
 
-  <!-- ─────────── 03 STACK ─────────── -->
+  <!-- ─────────── 04 STACK ─────────── -->
   <section class="sec" id="stack">
     <div class="wrap sec-grid">
       <header class="sec-head reveal">
-        <span class="idx">03 /</span>
+        <span class="idx">04 /</span>
         <h2 data-i18n="stack.title">Stack</h2>
         <p class="stamp" data-i18n="stack.intro">What I actually use, not everything I’ve touched.</p>
       </header>
@@ -300,11 +354,11 @@
     </div>
   </section>
 
-  <!-- ─────────── 04 ABOUT ─────────── -->
+  <!-- ─────────── 05 ABOUT ─────────── -->
   <section class="sec" id="about">
     <div class="wrap sec-grid">
       <header class="sec-head reveal">
-        <span class="idx">04 /</span>
+        <span class="idx">05 /</span>
         <h2 data-i18n="about.title">About</h2>
       </header>
       <div class="sec-body about">
@@ -317,11 +371,11 @@
     </div>
   </section>
 
-  <!-- ─────────── 05 CONTACT ─────────── -->
+  <!-- ─────────── 06 CONTACT ─────────── -->
   <section class="sec" id="contact">
     <div class="wrap sec-grid">
       <header class="sec-head reveal">
-        <span class="idx">05 /</span>
+        <span class="idx">06 /</span>
         <h2 data-i18n="contact.title">Contact</h2>
       </header>
       <div class="sec-body">

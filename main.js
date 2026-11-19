@@ -11,7 +11,8 @@
   var ES = {
     "skip": "Saltar al contenido",
     "nav.now": "Ahora",
-    "nav.projects": "Proyectos",
+    "nav.ventures": "Proyectos propios",
+    "nav.oss": "Código abierto",
     "nav.how": "Cómo construyo",
     "nav.stack": "Stack",
     "nav.about": "Sobre mí",
@@ -41,8 +42,8 @@
     "now.noevents": "Pronto, nuevos eventos.",
     "now.meet": "¿Vas tú también? Escríbeme y nos vemos allí.",
 
-    "proj.title": "Proyectos",
-    "proj.intro": "Dos proyectos, una arquitectura. Los dos son privados; te los enseño en directo encantado.",
+    "proj.title": "Proyectos propios",
+    "proj.intro": "Lo que llevo yo. Dos proyectos, una arquitectura. Los dos son privados; te los enseño en directo encantado.",
     "s.caption": "esquema ilustrativo",
     "s1.title": "Neuvora AOS: los departamentos del negocio alimentan una base de datos; los agentes leen y escriben en ella; encima, un panel de control con revisión humana.",
     "s1.d1": "captación",
@@ -78,6 +79,16 @@
     "p2.result": "Plan de negocio hecho. Objetivo: un piloto funcionando en una universidad en septiembre de 2027.",
     "p2.status": "En desarrollo, con usuarios de prueba reales (sin coste) que me ayudan a pulirlo.",
     "p2.link": "Todavía sin enlace público.",
+
+    "oss.title": "Código abierto",
+    "oss.intro": "Repos pequeños y públicos: clónalos, lee el código y ejecútalos.",
+    "o1.cap": "Ejecución real con Claude: un cambio en el prompt para ahorrar costes hizo que el agente dejara de consultar los pedidos. Solo lo pilló el check de herramientas.",
+    "o1.tag": "Tests de regresión para agentes de IA.",
+    "o1.what": "Cambias un prompt, un modelo o una herramienta y descubres qué has roto antes que tus usuarios. Los casos de prueba van en un YAML; cada ejecución se compara con una referencia guardada, así ves qué ha empeorado y qué se ha arreglado, con un código de salida que entiende tu CI. Comprueba lo que el agente <em>hace</em> (las herramientas que llama), no solo lo que dice.",
+    "o1.status": "Público · licencia MIT · tests en verde en <span class=\"nowrap\">Python 3.10–3.13</span>",
+    "o2.tag": "Bot de trading algorítmico para MetaTrader 5.",
+    "o2.what": "Estrategias intercambiables que combina un selector según el régimen del mercado, un gestor de riesgo que dimensiona cada posición y un motor de backtesting basado en eventos, con spread, slippage y comisiones.",
+    "o2.status": "Proyecto de investigación · solo en cuenta demo",
 
     "how.title": "Cómo construyo",
     "how.p1": "Si has llegado hasta aquí, algo te ha llamado la atención. Esta es la idea de fondo: cómo funciona de verdad un sistema operativo agéntico diseñado desde el principio para integrar la IA de forma nativa.",
