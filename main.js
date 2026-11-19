@@ -86,9 +86,6 @@
     "o1.tag": "Tests de regresión para agentes de IA.",
     "o1.what": "Cambias un prompt, un modelo o una herramienta y descubres qué has roto antes que tus usuarios. Los casos de prueba van en un YAML; cada ejecución se compara con una referencia guardada, así ves qué ha empeorado y qué se ha arreglado, con un código de salida que entiende tu CI. Comprueba lo que el agente <em>hace</em> (las herramientas que llama), no solo lo que dice.",
     "o1.status": "Público · licencia MIT · tests en verde en <span class=\"nowrap\">Python 3.10–3.13</span>",
-    "o2.tag": "Bot de trading algorítmico para MetaTrader 5.",
-    "o2.what": "Estrategias intercambiables que combina un selector según el régimen del mercado, un gestor de riesgo que dimensiona cada posición y un motor de backtesting basado en eventos, con spread, slippage y comisiones.",
-    "o2.status": "Proyecto de investigación · solo en cuenta demo",
 
     "how.title": "Cómo construyo",
     "how.p1": "Si has llegado hasta aquí, algo te ha llamado la atención. Esta es la idea de fondo: cómo funciona de verdad un sistema operativo agéntico diseñado desde el principio para integrar la IA de forma nativa.",
