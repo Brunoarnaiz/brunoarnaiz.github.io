@@ -36,11 +36,8 @@
     "now.k2": "Explorando",
     "now.exploring": "El problema al que siempre vuelvo: hacer convivir agentes de IA, cuyas respuestas son impredecibles, con la trazabilidad y la pulcritud que exigen una base de datos y todos los canales conectados a ella. Alrededor de esa idea: fine-tuning de modelos open source, agentes dentro de Edge Functions de Supabase y estrategias para que un AOS crezca sin convertirse en un almacén caótico de información.",
     "now.k3": "Dónde encontrarme",
-    "now.events": "Me encanta ir a eventos donde conocer gente que comparta mis ambiciones e intereses. Próximos:",
-    "ev.indesia.date": "25–27 nov. 2026",
-    "ev.indesia.what": "Hackathon de IA · ETSIT-UPM, Madrid",
-    "now.noevents": "Pronto, nuevos eventos.",
-    "now.meet": "¿Vas tú también? Escríbeme y nos vemos allí.",
+    "now.events": "Me encanta ir a eventos donde conocer gente que comparta mis ambiciones e intereses. Me gustaría ir a más eventos de emprendedores y developers.",
+    "now.meet": "¿Conoces alguno que merezca la pena? Cuéntamelo.",
 
     "proj.title": "Proyectos propios",
     "proj.intro": "Lo que llevo yo. Dos proyectos, una arquitectura. Los dos son privados; te los enseño en directo encantado.",
