@@ -36,7 +36,7 @@
     "now.k2": "Explorando",
     "now.exploring": "El problema al que siempre vuelvo: hacer convivir agentes de IA, cuyas respuestas son impredecibles, con la trazabilidad y la pulcritud que exigen una base de datos y todos los canales conectados a ella. Alrededor de esa idea: fine-tuning de modelos open source, agentes dentro de Edge Functions de Supabase y estrategias para que un AOS crezca sin convertirse en un almacén caótico de información.",
     "now.k3": "Dónde encontrarme",
-    "now.events": "Me encanta ir a eventos donde conocer gente que comparta mis ambiciones e intereses. Me gustaría ir a más eventos de emprendedores y developers.",
+    "now.events": "Me gustaría ir a más eventos de emprendedores y developers, donde conocer gente que comparta mis ambiciones e intereses.",
     "now.meet": "¿Conoces alguno que merezca la pena? Cuéntamelo.",
 
     "proj.title": "Proyectos propios",
